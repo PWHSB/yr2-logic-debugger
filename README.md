@@ -1,45 +1,44 @@
 # yr2-logic-debugger
 
-一个逻辑辅助工具
+A logic debugging assistant tool.
 
-原作[DeltaNedas/ldb](https://github.com/deltanedas/ldb)
+Original work by [DeltaNedas/ldb](https://github.com/deltanedas/ldb).
 
-本项目地址https://github.com/yaddrx2/yr2-logic-debugger
+Project repository: https://github.com/yaddrx2/yr2-logic-debugger
+Updated repository (this): https://github.com/PWHSB/yr2-logic-debugger
 
-yaddrx2将其升级到了137，仅供学习交流使用
+Updated to version 137 by yaddrx2, Further updated to version 160.7 by [PWHSB](https://github.com/PWHSB)
 
-联系作者yaddrx2@foxmail.com
+Contact the author: yaddrx2@foxmail.com
 
-qq2568094643
+## Features
+This version is a modification of the original 1.3.3 release by [DeltaNedas](https://github.com/deltanedas).
 
-## 特性列表
-此版本在[DeltaNedas](https://github.com/deltanedas)原作1.3.3版本基础上进行修改
+### Logic Code Editor
+- Edit code statements in text format.
+- Import code blocks from the clipboard at a specified position.
 
-### 逻辑码编辑板
-- 代码语句的文本形式编辑
-- 在指定位置从剪切板导入代码块
+### Variable Display Panel
+- Variables flash when updated.
+- Displays blocks connected to the logic processor.
+- Shows the coordinates of buildings/units.
+- Export variables to the clipboard.
 
-### 变量显示面板
-- 变量更新闪烁
-- 逻辑块所连方块的显示
-- 建筑|单位的位置显示
-- 变量导出到剪切板
+### Step-by-Step Debugging Panel
+- Execute code step-by-step.
+- Pause logic block execution.
+- Run a specific number of lines.
+- Set breakpoints.
 
-### 单步调试面板
-- 代码单步运行调试
-- 暂停逻辑块运行
-- 指定运行行数
-- 设置断点
+### Memory Block Editor
+- Memory values ​​flash when updated.
+- Edit values ​​in decimal format.
+- View integers in binary.
+- Write integers in hexadecimal.
+- Import/export memory values ​​via the clipboard.
 
-### 内存块编辑板
-- 内存值更新闪烁
-- 十进制编辑
-- 整数二进制显示
-- 整数十六进制写入
-- 从剪切板导入导出内存值
-
-### 信息板
-- 内容复制与导入
+### Information Panel
+- Copy or import content.
 
 # License
 All of yr2-logic-debugger is licensed under the GNU GPLv3, available in [LICENSE](/LICENSE).
