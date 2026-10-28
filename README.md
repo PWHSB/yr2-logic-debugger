@@ -5,6 +5,7 @@ A logic debugging assistant tool.
 Original work by [DeltaNedas/ldb](https://github.com/deltanedas/ldb).
 
 Project repository: https://github.com/yaddrx2/yr2-logic-debugger
+
 Updated repository (this): https://github.com/PWHSB/yr2-logic-debugger
 
 Updated to version 137 by yaddrx2, Further updated to version 160.7 by [PWHSB](https://github.com/PWHSB)
