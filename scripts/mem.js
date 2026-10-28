@@ -20,6 +20,24 @@ global.override.class(MemoryBlock, {
 
     yr2Table: new Table(),
 
+    readValue(address) {
+        if (address < 0 || address >= this.objectMemory.length) {
+            return 0;
+        }
+        const value = this.objectMemory[address];
+        if (value === this.sentinel) {
+            return this.numberMemory[address];
+        } else {
+            return 0;
+        }
+    },
+    writeValue(address, value) {
+        if (address >= 0 || address < this.objectMemory.length) {
+            this.objectMemory[address] = this.sentinel;
+            this.numberMemory[address] = value;
+        }
+    },
+
     yr2TableBuild() {
         this.yr2Table.clear();
         if (this.yr2Setting.yr2table) {
@@ -41,8 +59,8 @@ global.override.class(MemoryBlock, {
                     }).width(75);
                     tt.button(Icon.upload, Styles.cleari, () => {
                         let outArray = new Array();
-                        for (let mem of this.memory)
-                            outArray.push(mem);
+                        for (var i=0; i<this.objectMemory.length; i++)
+                            outArray.push(this.readValue(i));
                         Core.app.setClipboardText(JSON.stringify(outArray));
                     }).size(40).tooltip('Export');
                     tt.button(Icon.downOpen, Styles.cleari, () => {
@@ -53,7 +71,7 @@ global.override.class(MemoryBlock, {
                         let inArray = JSON.parse(Core.app.getClipboardText());
                         if (inArray.length == this.block.memoryCapacity)
                             for (let i in inArray)
-                                this.memory[i] = inArray[i];
+                                this.writeValue(i, inArray[i]);
                     }).size(40).tooltip('Import');
                     tt.field(this.yr2Lists.memCol, v => {
                         if (v > 0) {
@@ -75,13 +93,13 @@ global.override.class(MemoryBlock, {
                     if (this.yr2Setting.edit) {
                         const p = t.pane(p => {
                             let count = 0;
-                            for (let i in this.memory) {
+                            for (var i=0; i<this.objectMemory.length; i++) {
                                 p.labelWrap('[gray]|').width(20).get().alignment = Align.center;
                                 const yr2Index = i;
                                 p.table(null, tt => {
                                     tt.labelWrap('[accent]#' + yr2Index).width(60);
-                                    tt.field(this.memory[yr2Index].toString(16), f => {
-                                        this.memory[yr2Index] = ('0x' + f - '').toString(10);
+                                    tt.field(this.readValue(yr2Index).toString(16), f => {
+                                        this.writeValue(yr2Index, ('0x' + f - '').toString(10));
                                     }).width(120 + (this.yr2Lists.memCol > 4 ? 0 : (4 - this.yr2Lists.memCol) * 200 / this.yr2Lists.memCol)).get().alignment = Align.right;
                                 }).top();
                                 if (count++ % this.yr2Lists.memCol == this.yr2Lists.memCol - 1) {
@@ -94,13 +112,13 @@ global.override.class(MemoryBlock, {
                         p.setFadeScrollBars(true);
                     } else {
                         const p = t.pane(p => {
-                            for (let i in this.memory) {
+                            for (var i=0; i<this.objectMemory.length; i++) {
                                 const yr2Index = i;
-                                let yr2MemText = this.memory[yr2Index];
+                                let yr2MemText = this.readValue(yr2Index);
                                 let yr2MemTime = 0;
                                 const yr2MemColor = () => {
-                                    if (this.memory[yr2Index] + '' != yr2MemText) {
-                                        yr2MemText = this.memory[yr2Index];
+                                    if (this.readValue(yr2Index) + '' != yr2MemText) {
+                                        yr2MemText = this.readValue(yr2Index);
                                         yr2MemTime = Time.time;
                                     }
                                     if (Time.time < yr2MemTime + 5) return '[green]';
@@ -117,13 +135,13 @@ global.override.class(MemoryBlock, {
                                     lwI.update(() => {
                                         lwI.setText('[accent]' + yr2MemColor() + '#' + yr2Index);
                                     });
-                                    if (/^[0-9]\d*$/.test(this.memory[yr2Index]))
+                                    if (/^[0-9]\d*$/.test(this.readValue(yr2Index)))
                                         for (let yr2MemBinIndex = 0; yr2MemBinIndex < 8; yr2MemBinIndex++) {
                                             tt.labelWrap('[gray]|').width(20).get().alignment = Align.center;
                                             const yr2MemBit = yr2MemBinIndex;
                                             const lwM = tt.labelWrap('').width(125).get();
                                             lwM.update(() => {
-                                                let mem = this.memory[yr2Index].toString(2).padStart(64, '0').slice(8 * yr2MemBit, 8 * yr2MemBit + 8).replace(/0/g, '□').replace(/1/g, '■');
+                                                let mem = this.readValue(yr2Index).toString(2).padStart(64, '0').slice(8 * yr2MemBit, 8 * yr2MemBit + 8).replace(/0/g, '□').replace(/1/g, '■');
                                                 lwM.setText(yr2MemVoid(mem) + yr2MemColor() + mem);
                                             }).alignment = Align.right;
                                         }
@@ -143,13 +161,13 @@ global.override.class(MemoryBlock, {
                 else if (this.yr2Setting.edit) {
                     const p = t.pane(p => {
                         let count = 0;
-                        for (let i in this.memory) {
+                        for (var i=0; i<this.objectMemory.length; i++) {
                             p.labelWrap('[gray]|').width(20).get().alignment = Align.center;
                             const yr2Index = i;
                             p.table(null, tt => {
                                 tt.labelWrap('[accent]#' + yr2Index).width(60);
-                                tt.field(this.memory[yr2Index], f => {
-                                    this.memory[yr2Index] = f;
+                                tt.field(this.readValue(yr2Index), f => {
+                                    this.writeValue(yr2Index, f);
                                 }).width(120 + (this.yr2Lists.memCol > 4 ? 0 : (4 - this.yr2Lists.memCol) * 200 / this.yr2Lists.memCol)).get().alignment = Align.right;
                             }).top();
                             if (count++ % this.yr2Lists.memCol == this.yr2Lists.memCol - 1) {
@@ -163,14 +181,14 @@ global.override.class(MemoryBlock, {
                 } else {
                     const p = t.pane(p => {
                         let count = 0;
-                        for (let i in this.memory) {
+                        for (var i=0; i<this.objectMemory.length; i++) {
                             p.labelWrap('[gray]|').width(20).get().alignment = Align.center;
                             const yr2Index = i;
-                            let yr2MemText = this.memory[yr2Index];
+                            let yr2MemText = this.readValue(yr2Index);
                             let yr2MemTime = 0;
                             const yr2MemColor = () => {
-                                if (this.memory[yr2Index] + '' != yr2MemText) {
-                                    yr2MemText = this.memory[yr2Index];
+                                if (this.readValue(yr2Index) + '' != yr2MemText) {
+                                    yr2MemText = this.readValue(yr2Index);
                                     yr2MemTime = Time.time;
                                 }
                                 if (Time.time < yr2MemTime + 5) return '[green]';
@@ -182,7 +200,7 @@ global.override.class(MemoryBlock, {
                                     return '[accent]' + yr2MemColor() + '#' + yr2Index;
                                 }).width(60);
                                 tt.label(() => {
-                                    return yr2MemColor() + this.memory[yr2Index];
+                                    return yr2MemColor() + this.readValue(yr2Index);
                                 }).minWidth(110).growX().get().alignment = Align.right;
                             }).top().growX().minHeight(30);
                             if (count++ % this.yr2Lists.memCol == this.yr2Lists.memCol - 1) {
