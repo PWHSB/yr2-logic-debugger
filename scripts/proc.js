@@ -93,7 +93,7 @@ global.override.class(LogicBlock, {
 				t.button(Icon.downOpen, Styles.cleari, () => {
 					this.yr2Setting.table.vars = !this.yr2Setting.table.vars;
 					this.yr2TableBuild();
-				}).size(40).tooltip('Variable');
+				}).size(40).tooltip('Variables');
 				t.button(Icon.menu, Styles.cleari, () => {
 					this.yr2Setting.table.editor = !this.yr2Setting.table.editor;
 					this.yr2TableBuild();
@@ -135,7 +135,7 @@ global.override.class(LogicBlock, {
 							ttt.button(Icon.left, Styles.cleari, () => {
 								if (this.yr2Setting.step.lock)
 									this.yr2Setting.step.forward = true;
-							}).size(40).tooltip('Step-by-step Execution');
+							}).size(40).tooltip('Run 1 Line');
 							ttt.button(Icon.undo, Styles.cleari, () => {
 								if (this.yr2Setting.step.lock) {
 									this.yr2Setting.step.skip = true;
@@ -144,7 +144,7 @@ global.override.class(LogicBlock, {
 							}).size(40).tooltip('Run Until Next Breakpoint');
 							ttt.check('', this.yr2Setting.step.break, c => {
 								this.yr2Setting.step.break = c;
-							}).size(40).tooltip('Enable Breakpoint');
+							}).size(40).tooltip('Enable Breakpoints');
 						}).top().height(50);;
 						tt.row();
 						this.yr2Lists.step.pane = tt.pane(p => {
@@ -527,7 +527,7 @@ global.override.class(LogicBlock, {
 							};
 							ttt.check('', this.yr2Setting.editor.jump, c => {
 								this.yr2Setting.editor.jump = c;
-							}).size(40).tooltip('Jump Transformation');
+							}).size(40).tooltip('Update Existing Jumps');
 							ttt.button(Icon.refresh, Styles.cleari, () => {
 								this.yr2Setting.editor.add = false;
 								this.yr2Lists.editor.codeAddPos = this.yr2Lists.codes.length - 1;
@@ -570,7 +570,7 @@ global.override.class(LogicBlock, {
 							}).size(40).tooltip('Import');
 							ttt.check('', this.yr2Setting.editor.replace, c => {
 								this.yr2Setting.editor.replace = c;
-							}).size(40).tooltip('Import Override');
+							}).size(40).tooltip('Import & Override');
 						}).top().height(50);
 						tt.row();
 						const p = tt.pane(p => {
