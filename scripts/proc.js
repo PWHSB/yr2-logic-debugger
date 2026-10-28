@@ -89,15 +89,15 @@ global.override.class(LogicBlock, {
 				t.button(Icon.host, Styles.cleari, () => {
 					this.yr2Setting.table.step = !this.yr2Setting.table.step;
 					this.yr2TableBuild();
-				}).size(40).tooltip('调试');
+				}).size(40).tooltip('Debug');
 				t.button(Icon.downOpen, Styles.cleari, () => {
 					this.yr2Setting.table.vars = !this.yr2Setting.table.vars;
 					this.yr2TableBuild();
-				}).size(40).tooltip('变量');
+				}).size(40).tooltip('Variable');
 				t.button(Icon.menu, Styles.cleari, () => {
 					this.yr2Setting.table.editor = !this.yr2Setting.table.editor;
 					this.yr2TableBuild();
-				}).size(40).tooltip('编辑');
+				}).size(40).tooltip('Edit');
 			});
 			this.yr2Table.row();
 			this.yr2Table.table(Styles.black6, t => {
@@ -117,15 +117,15 @@ global.override.class(LogicBlock, {
 									this.executor.vars[0].numval = this.yr2Lists.step.counter + 0;
 									this.yr2Setting.step.break = false;
 								}
-							}).size(40).tooltip('暂停');
+							}).size(40).tooltip('Pause');
 							ttt.button(Icon.trash, Styles.cleari, () => {
 								this.yr2Lists.step.breakPoint = [];
-							}).size(40).tooltip('重置断点');
+							}).size(40).tooltip('Reset Breakpoints');
 							ttt.button(Icon.add, Styles.cleari, () => {
 								if (this.yr2Lists.step.breakPoint.indexOf(this.yr2Lists.step.counter) == -1)
 									this.yr2Lists.step.breakPoint.push(this.yr2Lists.step.counter);
 								else this.yr2Lists.step.breakPoint.splice(this.yr2Lists.step.breakPoint.indexOf(this.yr2Lists.step.counter), 1);
-							}).size(40).tooltip('添加断点');
+							}).size(40).tooltip('Add Breakpoint');
 							this.yr2Lists.step.field = ttt.field('' + this.yr2Lists.step.counter, v => {
 								if (this.yr2Lists.step.counter != v - '') {
 									this.yr2Lists.step.counter = v - '';
@@ -135,16 +135,16 @@ global.override.class(LogicBlock, {
 							ttt.button(Icon.left, Styles.cleari, () => {
 								if (this.yr2Setting.step.lock)
 									this.yr2Setting.step.forward = true;
-							}).size(40).tooltip('单步运行');
+							}).size(40).tooltip('Step-by-step Execution');
 							ttt.button(Icon.undo, Styles.cleari, () => {
 								if (this.yr2Setting.step.lock) {
 									this.yr2Setting.step.skip = true;
 									this.yr2Setting.step.forward = true;
 								}
-							}).size(40).tooltip('运行到下一断点');
+							}).size(40).tooltip('Run Until Next Breakpoint');
 							ttt.check('', this.yr2Setting.step.break, c => {
 								this.yr2Setting.step.break = c;
-							}).size(40).tooltip('激活断点');
+							}).size(40).tooltip('Enable Breakpoint');
 						}).top().height(50);;
 						tt.row();
 						this.yr2Lists.step.pane = tt.pane(p => {
@@ -235,7 +235,7 @@ global.override.class(LogicBlock, {
 						tt.table(null, ttt => {
 							ttt.check('', this.yr2Setting.vars.mono, c => {
 								this.yr2Setting.vars.mono = c;
-							}).size(40).tooltip('单变量指示').get().update(() => {
+							}).size(40).tooltip('Univariate indication').get().update(() => {
 								const yr2Var = this.yr2Lists.vars.mono;
 								if (yr2Var !== null && this.yr2Setting.vars.mono)
 									if (yr2Var.objval instanceof Building) {
@@ -261,7 +261,7 @@ global.override.class(LogicBlock, {
 										this.yr2Lists.step.counter = 0;
 										this.yr2TableBuild();
 									} else this.executor.vars[0].numval = 0;
-							}).size(40).tooltip('重新运行');
+							}).size(40).tooltip('Rerun');
 							ttt.button(Icon.trash, Styles.cleari, () => {
 								this.updateCode(this.code);
 								if (this.yr2Setting.step.lock && this.executor.vars[0] !== undefined)
@@ -269,13 +269,13 @@ global.override.class(LogicBlock, {
 								this.executor.textBuffer.setLength(0);
 								this.yr2Lists.step.counter = 0;
 								this.yr2TableBuild();
-							}).size(40).tooltip('重置变量');
+							}).size(40).tooltip('Reset Variables');
 							ttt.field(this.yr2Lists.vars.search, v => {
 								this.yr2Lists.vars.search = v;
 							}).width(75);
 							ttt.button(Icon.zoom, Styles.cleari, () => {
 								this.yr2TableBuild();
-							}).size(40).tooltip('筛选');
+							}).size(40).tooltip('Filter');
 							ttt.button(Icon.upload, Styles.cleari, () => {
 								let outVars = new Object();
 								let constants = {};
@@ -314,7 +314,7 @@ global.override.class(LogicBlock, {
 							}).size(40).tooltip('导出');
 							ttt.check('', this.yr2Setting.vars.link, c => {
 								this.yr2Setting.vars.link = c;
-							}).size(40).tooltip('位置指示器');
+							}).size(40).tooltip('Position Indicator');
 						}).top().height(50);
 						tt.row();
 						const varLength = () => {
@@ -527,12 +527,12 @@ global.override.class(LogicBlock, {
 							};
 							ttt.check('', this.yr2Setting.editor.jump, c => {
 								this.yr2Setting.editor.jump = c;
-							}).size(40).tooltip('跳转变换');
+							}).size(40).tooltip('Jump Transformation');
 							ttt.button(Icon.refresh, Styles.cleari, () => {
 								this.yr2Setting.editor.add = false;
 								this.yr2Lists.editor.codeAddPos = this.yr2Lists.codes.length - 1;
 								this.yr2TableBuild();
-							}).size(40).tooltip('刷新');
+							}).size(40).tooltip('Refresh');
 							ttt.button(Icon.link, Styles.cleari, () => {
 								if (this.yr2Lists.editor.codeAdd != '')
 									this.yr2Lists.codes.splice(this.yr2Lists.editor.codeAddPos, 0, this.yr2Lists.editor.codeAdd);
@@ -541,14 +541,14 @@ global.override.class(LogicBlock, {
 								this.yr2Setting.editor.add = false;
 								this.yr2Lists.editor.codeAdd = '';
 								this.yr2TableBuild();
-							}).size(40).tooltip('提交');
+							}).size(40).tooltip('Add');
 							ttt.field(this.yr2Lists.editor.codeAddPos, v => {
 								this.yr2Lists.editor.codeAddPos = v;
 							}).width(75);
 							ttt.button(Icon.add, Styles.cleari, () => {
 								this.yr2Setting.editor.add = true;
 								this.yr2TableBuild();
-							}).size(40).tooltip('插入');
+							}).size(40).tooltip('Insert');
 							ttt.button(Icon.download, Styles.cleari, () => {
 								if (this.yr2Setting.editor.replace) {
 									this.updateCode(Core.app.getClipboardText().replace(/\r/g, ''));
@@ -567,10 +567,10 @@ global.override.class(LogicBlock, {
 									this.updateCode(this.yr2Lists.codes.join('\n'));
 								}
 								this.yr2TableBuild();
-							}).size(40).tooltip('导入');
+							}).size(40).tooltip('Import');
 							ttt.check('', this.yr2Setting.editor.replace, c => {
 								this.yr2Setting.editor.replace = c;
-							}).size(40).tooltip('导入覆盖');
+							}).size(40).tooltip('Import Override');
 						}).top().height(50);
 						tt.row();
 						const p = tt.pane(p => {
